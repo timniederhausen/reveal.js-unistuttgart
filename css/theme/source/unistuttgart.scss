@@ -1,0 +1,172 @@
+@import "white";
+
+// see http://www.uni-stuttgart.de/more/corporate_design/cd-dateien/Uni_Stuttgart_CD-Manual_2016_klein.pdf
+$unis-blue: rgb(0, 65, 145);
+$unis-lightblue: rgb(0, 190, 255);
+$unis-gray: rgb(62, 68, 76);
+$unis-yellow: rgb(255, 213, 0);
+
+$unis-logo-path: "../../lib/img/unistuttgart_logo_deutsch_cmyk-01.png";
+$unis-logo-width: 768px;
+$unis-logo-height: 193px;
+
+$unis-main-title-size: 45rem;
+$unis-main-title-offset: 8rem;
+// How much do we want to shrink the title content are because
+// of the overlapping "author circle"?
+$unis-main-title-author-offset: 4rem;
+
+$unis-main-author-size: 8rem;
+$unis-main-author-offset: 25rem;
+
+@mixin circle-with-text {
+  border-radius: 100%;
+  text-align: center;
+  margin: 5px 20px;
+  padding: 15px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.unis-logo {
+  background: #fff;
+  width: 100%;
+  height: 10rem;
+  padding: 20px;
+
+  &::after {
+    display: block;
+    content: '';
+    background: url($unis-logo-path) top left / ($unis-logo-width / 3) ($unis-logo-height / 3) no-repeat;
+    width: $unis-logo-width / 3;
+    height: $unis-logo-height / 3;
+  }
+}
+
+.reveal .unis-presentation-title {
+  // using the mixin here is overkill - we override almost all
+  // properties anyway.
+  border-radius: 100%;
+
+  // Place our circle at the bottom-right of our page,
+  // part of it outside the page's boundaries.
+  position: absolute;
+  width: $unis-main-title-size;
+  height: $unis-main-title-size;
+  right: -$unis-main-title-offset;
+  bottom: -$unis-main-title-offset;
+  background: $unis-gray;
+
+  // Since part of the circle is outside the page,
+  // we have to use this hack to center the circle's content correctly.
+  > * {
+    position: absolute;
+    width: $unis-main-title-size - $unis-main-title-offset - $unis-main-title-author-offset;
+    height: $unis-main-title-size - $unis-main-title-offset - $unis-main-title-author-offset;
+    right: $unis-main-title-offset;
+    bottom: $unis-main-title-offset;
+    padding: 0;
+    margin: 0;
+    // center this container's non-text content
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h1, h2, h3, h4, h5, h6 {
+      color: #fff;
+      text-align: center;
+    }
+  }
+}
+
+.unis-presentation-author {
+  @include circle-with-text;
+
+  position: absolute;
+  width: $unis-main-author-size;
+  height: $unis-main-author-size;
+  right: $unis-main-author-offset;
+  bottom: $unis-main-author-offset;
+  color: rgb(62, 68, 76);
+  background: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.unis-section-title {
+  @include circle-with-text;
+
+  position: absolute;
+  width: 45rem;
+  height: 45rem;
+  left: -8rem;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+
+  background: white;
+  color: $unis-gray;
+  font-size: 2.6rem;
+  font-weight: bold;
+}
+
+// Change some styles set by the parent theme
+.reveal {
+  h1, h2, h3, h4, h5, h6 {
+    text-transform: none;
+    font-weight: bold;
+  }
+
+  table {
+    margin: initial;
+
+    td {
+      vertical-align: middle;
+    }
+
+    .noborder td, .noborder th {
+      border: 0;
+    }
+  }
+
+  table.plain {
+    td {
+      padding: 0;
+      border: 0;
+    }
+  }
+
+  .slides {
+    text-align: left;
+
+    > section.unis-blue-background, > section > section.unis-blue-background {
+      background: linear-gradient(to top right, $unis-blue, $unis-lightblue);
+      width: 100%;
+      height: 100%;
+      padding: 0;
+    }
+  }
+}
+
+.reveal .note {
+  color: #a9a9a9;
+  font-size: 0.75em;
+  margin-left: 0.5em;
+  margin-right: 0.2em;
+}
+
+// phonet-style properties
+
+.reveal .property-name {
+  color: #a9a9a9;
+  font-size: 0.75em;
+  margin-right: 0.2em;
+}
+
+.reveal .property-value {
+  font-size: 0.75em;
+  margin-right: 0.2em;
+}
